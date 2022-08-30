@@ -1,0 +1,14 @@
+[package]
+name = "sfx-ll"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+clap = "3.2.17"
+structopt = "0.3.26"
+windows = { version = "0.39.0", features = ["Win32_System_LibraryLoader", "Win32_Foundation"] }
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
