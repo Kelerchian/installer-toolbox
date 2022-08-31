@@ -66,6 +66,7 @@ fn main() {
         Subcommand::Extract { destination } => {
             let block_count = extractor::read_block_count().unwrap();
             extractor::extract_binary(destination, &block_count);
+            extractor::read_custom_string("asdf");
         }
     }
 }
