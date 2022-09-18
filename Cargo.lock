@@ -203,6 +203,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "getrandom"
+version = "0.2.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4eb1a864a501629691edf6c15a593b7a51eebaa1e8468e9ddc623de7c9b58ec6"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "wasi",
+]
+
+[[package]]
 name = "heck"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -373,11 +384,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "sfx-instant-package"
+version = "0.1.0"
+dependencies = [
+ "sfx-zip",
+ "structopt",
+ "uuid",
+]
+
+[[package]]
 name = "sfx-ll"
 version = "0.1.0"
 dependencies = [
  "structopt",
  "windows",
+]
+
+[[package]]
+name = "sfx-zip"
+version = "0.1.0"
+dependencies = [
+ "sfx-ll",
+ "structopt",
+ "walkdir",
+ "zip",
 ]
 
 [[package]]
@@ -501,6 +531,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3ed742d4ea2bd1176e236172c8429aaf54486e7ac098db29ffe6529e0ce50973"
 
 [[package]]
+name = "uuid"
+version = "1.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dd6469f4314d5f1ffec476e05f17cc9a78bc7a27a6a857842170bdf8d6f98d2f"
+dependencies = [
+ "getrandom",
+]
+
+[[package]]
 name = "vec_map"
 version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -522,6 +561,12 @@ dependencies = [
  "winapi",
  "winapi-util",
 ]
+
+[[package]]
+name = "wasi"
+version = "0.11.0+wasi-snapshot-preview1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
 
 [[package]]
 name = "winapi"
@@ -615,16 +660,6 @@ dependencies = [
  "sha1",
  "time",
  "zstd",
-]
-
-[[package]]
-name = "zipper"
-version = "0.1.0"
-dependencies = [
- "sfx-ll",
- "structopt",
- "walkdir",
- "zip",
 ]
 
 [[package]]

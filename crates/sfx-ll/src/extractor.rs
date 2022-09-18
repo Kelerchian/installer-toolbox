@@ -9,20 +9,21 @@ use windows::core::PCSTR;
 use windows::Win32::Foundation::HINSTANCE;
 use windows::Win32::System::LibraryLoader;
 
-pub fn read_block_count() -> Result<u32, ()> {
+fn read_block_count() -> Result<u32, ()> {
     let vec = read_resource_as_vec_u8(RES_TYPE, RES_NAME_COUNT).unwrap();
     let data = String::from_utf8(vec).unwrap().parse::<u32>().unwrap();
     Ok(data)
 }
 
-pub fn extract_binary(file_path: &std::path::Path, block_count: &u32) -> Result<(), ()> {
+pub fn extract_binary(file_path: &std::path::Path) -> Result<(), ()> {
+    let block_count = read_block_count().unwrap();
     let file = fs::File::options()
         .create_new(true)
         .write(true)
         .open(file_path)
         .unwrap();
     let mut buf_writer = BufWriter::new(file);
-    for block_index in 0..*block_count {
+    for block_index in 0..block_count {
         let chunk = read_resource_as_vec_u8(RES_TYPE, get_index_key(&block_index)).unwrap();
         buf_writer.write_all(chunk.as_slice()).unwrap();
     }
@@ -44,7 +45,8 @@ pub fn read_resource_as_vec_u8(
     };
 
     if let Err(error) = &resource_info_res {
-        if error.code().0 as u32 == 0x80070716 {
+        let error_code = error.code().0 as u32;
+        if error_code == 0x80070716 || error_code == 0x80070714 {
             return None;
         }
     }

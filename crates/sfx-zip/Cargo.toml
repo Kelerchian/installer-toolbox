@@ -1,0 +1,16 @@
+[package]
+name = "sfx-zip"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "sfx_zip"
+path = "src/lib.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+sfx-ll = { version = "0.1.0", path = "../sfx-ll" }
+structopt = "0.3.26"
+walkdir = "2.3.2"
+zip = "0.6.2"

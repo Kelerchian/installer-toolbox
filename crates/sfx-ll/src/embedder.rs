@@ -55,7 +55,7 @@ pub fn embed_custom_string(
     }
 }
 
-pub fn embed_binary_as_archive(handle: &HANDLE, file_path: &std::path::Path) -> Result<u32, ()> {
+pub fn embed_binary_as_archive(handle: &HANDLE, file_path: &std::path::Path) -> Result<(), ()> {
     let res_type_cstr: CString = CString::new(RES_TYPE).unwrap();
     let file = fs::File::open(file_path).unwrap();
     let mut buf_reader = BufReader::new(file);
@@ -97,10 +97,11 @@ pub fn embed_binary_as_archive(handle: &HANDLE, file_path: &std::path::Path) -> 
         index += 1;
     }
     let block_count = index;
-    Ok(block_count)
+    embed_block_count(handle, &block_count).unwrap();
+    Ok(())
 }
 
-pub fn embed_block_count(handle: &HANDLE, block_count: &u32) -> Result<(), ()> {
+fn embed_block_count(handle: &HANDLE, block_count: &u32) -> Result<(), ()> {
     let res_type_cstr: CString = CString::new(RES_TYPE).unwrap();
     let res_name_count_cstr: CString = CString::new(RES_NAME_COUNT).unwrap();
 

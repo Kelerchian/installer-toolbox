@@ -55,18 +55,13 @@ fn main() {
             embedder::with_resource_update_handle(
                 destination.as_path(),
                 Box::new(|update_resource_handle: &HANDLE| {
-                    let block_count =
-                        embedder::embed_binary_as_archive(update_resource_handle, source.as_path())
-                            .unwrap();
-                    let _success =
-                        embedder::embed_block_count(update_resource_handle, &block_count).is_ok();
+                    embedder::embed_binary_as_archive(update_resource_handle, source.as_path())
+                        .unwrap();
                 }),
             );
         }
         Subcommand::Extract { destination } => {
-            let block_count = extractor::read_block_count().unwrap();
-            extractor::extract_binary(destination, &block_count);
-            extractor::read_custom_string("asdf");
+            extractor::extract_binary(destination).unwrap();
         }
     }
 }
